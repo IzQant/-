@@ -8,17 +8,22 @@ for i in range(N):
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
-
+C = 0
 for i in tomatoes:
     if 0 not in i:
+        C += 1
+    if C == N:
         print(0)
         exit()
+    else:
+        continue
 
 queue = deque()
 for i in range(N):
     for j in range(M):
         if tomatoes[i][j] == 1:
             queue.append((i, j))
+
 
 cnt = 0
 
@@ -41,4 +46,3 @@ for i in tomatoes:
 cnt = max(map(max, tomatoes)) - 1
 
 print(cnt)
-print(tomatoes)
