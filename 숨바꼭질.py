@@ -17,4 +17,3 @@ def bfs(N, K):
                 queue.append(i)
                 graph[i] = graph[n] + 1
 bfs(N, K)
-
