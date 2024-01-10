@@ -1,28 +1,28 @@
 input = __import__('sys').stdin.readline
 N, r, c = map(int, input().split())
-sz = 2 ** N
-board = [ [0 for _ in range(sz)] for _ in range(sz)]
+cnt = 0
+#순서는 2-1-3-4
+while N > 1:
+    sz = 2**N // 2
+    if r < sz and c < sz: #2사분면
+        pass
+    elif r < sz and c >= sz: #1사분면
+        cnt += sz ** 2 #2사분면에서 1사분면으로 이동
+        c -= sz
+    elif r >= sz and c < sz: #3사분면
+        cnt += sz ** 2 * 2 #2사분면에서 3사분면으로 이동
+        r -= sz
+    elif r >= sz and c >= sz: #4사분면
+        cnt += sz ** 2 * 3 #2사분면에서 4사분면으로 이동
+        r -= sz
+        c -= sz
+    N -= 1 #배열 크기 반으로 줄이기
 
-index = 0
-
-def solve(x, y, sz):
-    global index
-    if (sz == 1):
-        board[x][y] = index
-        index += 1
-        return
-    sz //= 2
-    if r < x + sz and c < y + sz:
-        solve(x, y, sz)
-    elif r < x + sz and c >= y + sz:
-        index += sz * sz
-        solve(x, y + sz, sz)
-    elif r >= x + sz and c < y + sz:
-        index += 2 * sz * sz
-        solve(x + sz, y, sz)
-    elif r >= x + sz and c >= y + sz:
-        index += 3 * sz * sz
-        solve(x + sz, y + sz, sz)
-
-solve(0, 0, sz)
-print(board[r][c])
+if r == 0 and c == 0: #2사분면
+    print(cnt)
+elif r == 0 and c == 1: #1사분면
+    print(cnt + 1)
+elif r == 1 and c == 0: #3사분면 
+    print(cnt + 2)
+elif r == 1 and c == 1: #4사분면
+    print(cnt + 3)
